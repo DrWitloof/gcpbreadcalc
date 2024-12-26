@@ -8,27 +8,26 @@ steps:
     args:
       - build
       - '--cache-from'
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:latest'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:latest'
       - '-t'
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
       - '.'
 
-  # Step 2: Push the Docker image to Artifact Registry
+  # Step 2: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - push
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
 
   # Step 3: Tag the image as "latest" for caching
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
-      - artifacts
-      - docker
-      - tag
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:$COMMIT_SHA'
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:latest'
-
+      - container
+      - images
+      - add-tag
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:latest'
   # Step 4: Deploy the Docker image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
@@ -37,12 +36,13 @@ steps:
       - deploy
       - 'gcpbreadcalc'
       - '--image'
-      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
       - '--region'
-      - 'europe-west1'  # Replace with your region
+      - 'europe-west1'  # Replace with your region, e.g., "europe-west1"
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
 
 images:
-  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/gcpbreadcalc:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
+  
