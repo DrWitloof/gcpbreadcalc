@@ -11,6 +11,15 @@ def index():
 def health_check():
     return "OK", 200
 
+# Custom rounding function
+def custom_round(value):
+    if value < 80:
+        return 5 * round(value / 5)
+    elif value < 150:
+        return 10 * round(value / 10)
+    else:
+        return 50 * round(value / 50)
+
 @app.route('/bereken', methods=['POST'])
 def bereken():
     data = request.json
@@ -18,6 +27,8 @@ def bereken():
     gewicht_brood = int(data['gewichtBrood'])
     hydratie = float(data['hydratie']) / 100
     inocculatie = float(data['inocculatie']) / 100
+
+    clean = data.get('clean', True)  # Defaults to False if not provided
 
     # Berekeningen
     totaal_deeg = aantal_broden * gewicht_brood * 1.16
@@ -28,6 +39,14 @@ def bereken():
     water = totaal_water - (desem / 2)
     zout = totaal_bloem * 0.02
 
+    if clean:
+        bloem = custom_round(bloem)
+        water = custom_round(water)
+        desem = custom_round(desem)
+        totaal_bloem = bloem + (desem / 2)
+        totaal_water = water + (desem / 2)
+        totaal_deeg = totaal_bloem + totaal_water + zout
+    
     return jsonify({
         'totaalDeeg': round(totaal_deeg, 2),
         'totaalBloem': round(totaal_bloem, 2),
