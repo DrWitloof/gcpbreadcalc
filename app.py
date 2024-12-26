@@ -34,7 +34,7 @@ def bereken():
     totaal_deeg = aantal_broden * gewicht_brood * 1.16
     totaal_bloem = totaal_deeg / (1 + hydratie)
     totaal_water = totaal_bloem * hydratie
-    desem = totaal_deeg * inocculatie
+    desem = totaal_bloem * inocculatie
     bloem = totaal_bloem - (desem / 2)
     water = totaal_water - (desem / 2)
     zout = totaal_bloem * 0.02
