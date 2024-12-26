@@ -57,7 +57,7 @@ button:hover {
 }
 
 /* Output Section */
-#output {
+#output, #opslag {
   margin-top: 20px;
   background: #f9f9f9;
   padding: 20px;
@@ -65,7 +65,7 @@ button:hover {
   border-radius: 8px;
 }
 
-#output h2 {
+#output h2, #opslag h2 {
   margin-bottom: 15px;
   font-size: 1.2em;
   color: #333;
