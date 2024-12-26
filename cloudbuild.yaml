@@ -1,0 +1,36 @@
+# cloudbuild.yaml
+options:
+  logging: CLOUD_LOGGING_ONLY  # Explicitly specify logging to Cloud Logging only
+
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
+      - '.'
+
+  # Step 2: Push the Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
+
+  # Step 3: Deploy the Docker image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - run
+      - deploy
+      - 'gcpbreadcalc'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
+      - '--region'
+      - 'YOUR_REGION'  # Replace with your region, e.g., "europe-west1"
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
