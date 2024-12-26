@@ -16,7 +16,7 @@ document.getElementById('opslaanKnop').addEventListener('click', function() {
     .then(result => {
       // Bereken de hydratatie en inocculatie percentages
       const gegevensOmOpTeSlaan = {
-        vraag: `{$data.aantalBroden}x{$data.gewichtBrood}{$data.clean?"(clean)"}`,
+        vraag: `${data.aantalBroden}x${data.gewichtBrood}${data.clean?"(clean)"}`,
         recept:  `${result.water}g water
 ${result.desem}g desem
 ${result.zout}g zout
@@ -24,12 +24,12 @@ ${result.bloem}g bloem`,
         totalen: `${result.totaalWater}g water
 ${result.totaalBloem}g bloem
 ${result.totaalDeeg}g deeg`,
-        percentages: `hydratatie: {((result.totaalWater / result.totaalBloem) * 100).toFixed(2)}%
-inoculatie: {((result.desem / result.totaalBloem) * 100).toFixed(2)}%`
+        percentages: `hydratatie: ${((result.totaalWater / result.totaalBloem) * 100).toFixed(2)}%
+inoculatie: ${((result.desem / result.totaalBloem) * 100).toFixed(2)}%`
       };
 
       // Sla het object op in localStorage
-      localStorage.setItem('broodOpslag', JSON.stringify(gegevensOmOpTeSlaan));
+      localStorage.setItem(`${gegevensOmOpTeSlaan.vraag}=${gegevensOmOpTeSlaan.recept}`, JSON.stringify(gegevensOmOpTeSlaan));
       alert('De huidig berekende gegevens zijn opgeslagen in de lokale opslag!');
     })
     .catch(error => {
@@ -55,9 +55,9 @@ function toonOpslag() {
         const row = document.createElement('tr');
 
         // Voeg de velden toe aan de juiste kolommen
-        const cellSleutel = document.createElement('td');
-        cellSleutel.textContent = sleutel;
-        row.appendChild(cellSleutel);
+//        const cellSleutel = document.createElement('td');
+//        cellSleutel.textContent = sleutel;
+//        row.appendChild(cellSleutel);
 
         const celVraag = document.createElement('td');
         celVraag.textContent = parsedValue.vraag || '-';
@@ -81,7 +81,7 @@ function toonOpslag() {
       // Als de waarde geen JSON is, toon een melding in een aparte rij
       const row = document.createElement('tr');
       const cell = document.createElement('td');
-      cell.colSpan = 5; // Maak de cel breed genoeg voor alle kolommen
+      cell.colSpan = 4; // Maak de cel breed genoeg voor alle kolommen
       cell.textContent = `Onbekend formaat voor sleutel: ${sleutel}`;
       row.appendChild(cell);
       opslagContainer.appendChild(row);
