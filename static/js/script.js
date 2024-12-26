@@ -14,18 +14,24 @@ function bereken() {
   })
     .then(response => response.json())
     .then(result => {
+      // Bereken de hydratatie en inocculatie
+      const hydratatiePercentage = (result.totaalWater / result.totaalBloem) * 100;
+      const inoculatiePercentage = (result.desem / result.totaalBloem) * 100;
+
       const outputBody = document.getElementById('output-body');
       outputBody.innerHTML = ''; // Verwijder oude rijen
 
       // Voeg nieuwe rijen toe met de berekende waarden
       const recepten = [
-        { naam: "Bloem", waarde: result.bloem },
         { naam: "Water", waarde: result.water },
-        { naam: "Desem", waarde: result.desem, percent: result.desem / result.totaalBloem  },
+        { naam: "Desem", waarde: result.desem },
         { naam: "Zout", waarde: result.zout },
+        { naam: "Bloem", waarde: result.bloem },
         { naam: "Totale hoeveelheid bloem", waarde: result.totaalBloem },
-        { naam: "Totale hoeveelheid water", waarde: result.totaalWater, percent: result.totaalWater / result.totaalBloem },
+        { naam: "Totale hoeveelheid water", waarde: result.totaalWater },
         { naam: "Totale hoeveelheid deeg", waarde: result.totaalDeeg },
+        { naam: "Hydratatie", waarde: hydratatiePercentage.toFixed(2) + '%', isPercentage: true },
+        { naam: "Inoculatie", waarde: inoculatiePercentage.toFixed(2) + '%', isPercentage: true },
       ];
 
       recepten.forEach(item => {
@@ -33,16 +39,16 @@ function bereken() {
         const cell1 = document.createElement('td');
         const cell2 = document.createElement('td');
         cell1.textContent = item.naam;
-        cell2.textContent = `${item.waarde} g`;
+
+        if (item.isPercentage) {
+          cell2.textContent = item.waarde; // Geef de percentage weer
+        } else {
+          cell2.textContent = `${item.waarde} g`; // Geeft de hoeveelheid weer gevolgd door 'g'
+        }
+        
         row.appendChild(cell1);
         row.appendChild(cell2);
 
-        // Check if there's a percent value to add a third cell
-        if (item.percent !== undefined) {
-          const cell3 = document.createElement('td');
-          cell3.textContent = `${(item.percent * 100).toFixed(2)}%`;
-          row.appendChild(cell3);
-        }
         outputBody.appendChild(row);
       });
     })
@@ -51,4 +57,46 @@ function bereken() {
       outputDiv.innerHTML = `<p style="color: red;">Er is een fout opgetreden: ${error.message}</p>`;
     });
 }
+
+document.getElementById('opslaanKnop').addEventListener('click', function() {
+  const data = {
+    aantalBroden: document.getElementById('aantal-broden').value,
+    gewichtBrood: document.getElementById('gewicht-brood').value,
+    clean: document.getElementById("clean").checked,
+  };
+
+  fetch('/bereken', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      // Bereken de hydratatie en inocculatie percentages
+      const gegevensOmOpTeSlaan = {
+        aantalBroden: data.aantalBroden,
+        gewichtBrood: data.gewichtBrood,
+        clean: data.clean,
+        resultaten: {
+          water: result.water,
+          desem: result.desem,
+          zout: result.zout,
+          bloem: result.bloem,
+          totaalBloem: result.totaalBloem,
+          totaalWater: result.totaalWater,
+          totaalDeeg: result.totaalDeeg,
+          hydratatie: ((result.totaalWater / result.totaalBloem) * 100).toFixed(2),
+          inoculatie: ((result.desem / result.totaalBloem) * 100).toFixed(2)
+        }
+      };
+
+      // Sla het object op in localStorage
+      localStorage.setItem('broodOpslag', JSON.stringify(gegevensOmOpTeSlaan));
+      alert('De huidig berekende gegevens zijn opgeslagen in de lokale opslag!');
+    })
+    .catch(error => {
+      console.error("Fout bij het ophalen van resultaten:", error);
+    });
+});
+
 
