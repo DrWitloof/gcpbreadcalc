@@ -3,7 +3,8 @@ function bereken() {
     aantalBroden: document.getElementById('aantal-broden').value,
     gewichtBrood: document.getElementById('gewicht-brood').value,
     hydratie: document.getElementById('hydratie').value,
-    inocculatie: document.getElementById('inocculatie').value
+    inocculatie: document.getElementById('inocculatie').value,
+    clean: document.getElementById("clean").checked;
   };
 
   fetch('/bereken', {
@@ -18,13 +19,13 @@ function bereken() {
 
       // Voeg nieuwe rijen toe met de berekende waarden
       const recepten = [
-        { naam: "Totale hoeveelheid deeg", waarde: result.totaalDeeg },
-        { naam: "Totale hoeveelheid bloem", waarde: result.totaalBloem },
-        { naam: "Totale hoeveelheid water", waarde: result.totaalWater },
         { naam: "Bloem", waarde: result.bloem },
         { naam: "Water", waarde: result.water },
-        { naam: "Desem", waarde: result.desem },
+        { naam: "Desem", waarde: result.desem, percent: result.totaalWater / result.totaalBloem  },
         { naam: "Zout", waarde: result.zout },
+        { naam: "Totale hoeveelheid bloem", waarde: result.totaalBloem },
+        { naam: "Totale hoeveelheid water", waarde: result.totaalWater, percent: result.totaalWater / result.totaalBloem },
+        { naam: "Totale hoeveelheid deeg", waarde: result.totaalDeeg },
       ];
 
       recepten.forEach(item => {
@@ -35,6 +36,13 @@ function bereken() {
         cell2.textContent = `${item.waarde} g`;
         row.appendChild(cell1);
         row.appendChild(cell2);
+
+        // Check if there's a percent value to add a third cell
+        if (item.percent !== undefined) {
+          const cell3 = document.createElement('td');
+          cell3.textContent = `${(item.percent * 100).toFixed(2)}%`;
+          row.appendChild(cell3);
+        }
         outputBody.appendChild(row);
       });
     })
