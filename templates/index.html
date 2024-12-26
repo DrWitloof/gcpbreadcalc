@@ -51,22 +51,53 @@
       <button type="button" onclick="bereken()">Bereken</button>
     </form>
     
-<div id="output">
-  <h2>Recept Details</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Ingrediënt</th>
-        <th>Hoeveelheid (g)</th>
-      </tr>
-    </thead>
-    <tbody id="output-body">
-      <!-- Dynamische rijen worden hier toegevoegd via JavaScript -->
-    </tbody>
-  </table>
-</div>
-<button id="opslaanKnop">Sla gegevens op</button>
+    <div id="output">
+      <h2>Recept Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ingrediënt</th>
+            <th>Hoeveelheid (g)</th>
+          </tr>
+        </thead>
+        <tbody id="output-body">
+          <!-- Dynamische rijen worden hier toegevoegd via JavaScript -->
+        </tbody>
+      </table>
+      <button id="opslaanKnop">Sla gegevens op</button>
+    </div>
+
+
+
+    <div id="opslag">
+      <h2>Opslag</h2>
+        <table>
+        <thead>
+          <tr>
+            <th>Sleutel</th>
+            <th>Aantal Broden</th>
+            <th>Gewicht Brood</th>
+            <th>Clean</th>
+            <th>Water</th>
+            <th>Desem</th>
+            <th>Zout</th>
+            <th>Bloem</th>
+            <th>Totale Bloem</th>
+            <th>Totale Water</th>
+            <th>Totale Deeg</th>
+            <th>Hydratatie (%)</th>
+            <th>Inoculatie (%)</th>
+          </tr>
+        </thead>
+        <tbody id="opslag-body">
+          <!-- Dynamische weergave van localStorage-gegevens -->
+        </tbody>
+      </table>
+      <button id="wisOpslagKnop">Wis alle opgeslagen gegevens</button>
+    </div>
   </div>
+
+  
   <script src="/static/js/script.js"></script>
 </body>
 </html>
