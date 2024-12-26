@@ -27,7 +27,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:$COMMIT_SHA'
       - '--region'
-      - 'YOUR_REGION'  # Replace with your region, e.g., "europe-west1"
+      - 'europe-west1'  # Replace with your region, e.g., "europe-west1"
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
