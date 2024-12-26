@@ -27,6 +27,12 @@ h1 {
   color: #333;
 }
 
+h2 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #333;
+}
+
 /* Labels and Inputs */
 label {
   display: block;
@@ -57,18 +63,12 @@ button:hover {
 }
 
 /* Output Section */
-#output {
+#output, #opslag {
   margin-top: 20px;
   background: #f9f9f9;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-}
-
-#output h2 {
-  margin-bottom: 15px;
-  font-size: 1.2em;
-  color: #333;
 }
 
 table {
