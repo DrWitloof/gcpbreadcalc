@@ -62,7 +62,9 @@ document.getElementById('opslaanKnop').addEventListener('click', function() {
   const data = {
     aantalBroden: document.getElementById('aantal-broden').value,
     gewichtBrood: document.getElementById('gewicht-brood').value,
-    clean: document.getElementById("clean").checked,
+    hydratie: document.getElementById('hydratie').value,
+    inocculatie: document.getElementById('inocculatie').value,
+    clean: document.getElementById("clean").checked, 
   };
 
   fetch('/bereken', {
