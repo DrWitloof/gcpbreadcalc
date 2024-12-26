@@ -4,7 +4,7 @@ function bereken() {
     gewichtBrood: document.getElementById('gewicht-brood').value,
     hydratie: document.getElementById('hydratie').value,
     inocculatie: document.getElementById('inocculatie').value,
-    clean: document.getElementById("clean").checked;
+    clean: document.getElementById("clean").checked,
   };
 
   fetch('/bereken', {
