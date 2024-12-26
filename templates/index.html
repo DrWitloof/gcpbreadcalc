@@ -47,7 +47,22 @@
 
       <button type="button" onclick="bereken()">Bereken</button>
     </form>
-    <div id="output"></div>
+    
+<div id="output">
+  <h2>Recept Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ingrediënt</th>
+        <th>Hoeveelheid (g)</th>
+      </tr>
+    </thead>
+    <tbody id="output-body">
+      <!-- Dynamische rijen worden hier toegevoegd via JavaScript -->
+    </tbody>
+  </table>
+</div>
+
   </div>
   <script src="/static/js/script.js"></script>
 </body>
