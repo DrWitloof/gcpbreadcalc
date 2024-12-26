@@ -81,7 +81,7 @@ function toonOpslag() {
       // Als de waarde geen JSON is, toon een melding in een aparte rij
       const row = document.createElement('tr');
       const cell = document.createElement('td');
-      cell.colSpan = 5; // Maak de cel breed genoeg voor alle kolommen
+      cell.colSpan = 4; // Maak de cel breed genoeg voor alle kolommen
       cell.textContent = `Onbekend formaat voor sleutel: ${sleutel}`;
       row.appendChild(cell);
       opslagContainer.appendChild(row);
