@@ -3,7 +3,8 @@ function bereken() {
     aantalBroden: document.getElementById('aantal-broden').value,
     gewichtBrood: document.getElementById('gewicht-brood').value,
     hydratie: document.getElementById('hydratie').value,
-    inocculatie: document.getElementById('inocculatie').value
+    inocculatie: document.getElementById('inocculatie').value,
+    clean: document.getElementById("clean").checked;
   };
 
   fetch('/bereken', {
