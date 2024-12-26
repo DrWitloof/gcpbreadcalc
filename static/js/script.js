@@ -21,7 +21,7 @@ function bereken() {
       const recepten = [
         { naam: "Bloem", waarde: result.bloem },
         { naam: "Water", waarde: result.water },
-        { naam: "Desem", waarde: result.desem, percent: result.totaalWater / result.totaalBloem  },
+        { naam: "Desem", waarde: result.desem, percent: result.desem / result.totaalBloem  },
         { naam: "Zout", waarde: result.zout },
         { naam: "Totale hoeveelheid bloem", waarde: result.totaalBloem },
         { naam: "Totale hoeveelheid water", waarde: result.totaalWater, percent: result.totaalWater / result.totaalBloem },
