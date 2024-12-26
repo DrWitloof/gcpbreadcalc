@@ -20,7 +20,7 @@ def bereken():
     inocculatie = float(data['inocculatie']) / 100
 
     # Berekeningen
-    totaal_deeg = aantal_broden * gewicht_brood * 1.1
+    totaal_deeg = aantal_broden * gewicht_brood * 1.16
     totaal_bloem = totaal_deeg / (1 + hydratie)
     totaal_water = totaal_bloem * hydratie
     desem = totaal_deeg * inocculatie
