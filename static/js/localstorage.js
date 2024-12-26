@@ -16,7 +16,7 @@ document.getElementById('opslaanKnop').addEventListener('click', function() {
     .then(result => {
       // Bereken de hydratatie en inocculatie percentages
       const gegevensOmOpTeSlaan = {
-        vraag: `{$data.aantalBroden}x{$data.gewichtBrood}{$data.clean?"(clean)"}`,
+        vraag: `${data.aantalBroden}x${data.gewichtBrood}${data.clean?"(clean)"}`,
         recept:  `${result.water}g water
 ${result.desem}g desem
 ${result.zout}g zout
@@ -24,8 +24,8 @@ ${result.bloem}g bloem`,
         totalen: `${result.totaalWater}g water
 ${result.totaalBloem}g bloem
 ${result.totaalDeeg}g deeg`,
-        percentages: `hydratatie: {((result.totaalWater / result.totaalBloem) * 100).toFixed(2)}%
-inoculatie: {((result.desem / result.totaalBloem) * 100).toFixed(2)}%`
+        percentages: `hydratatie: ${((result.totaalWater / result.totaalBloem) * 100).toFixed(2)}%
+inoculatie: ${((result.desem / result.totaalBloem) * 100).toFixed(2)}%`
       };
 
       // Sla het object op in localStorage
