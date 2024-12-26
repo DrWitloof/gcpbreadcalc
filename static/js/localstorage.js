@@ -29,7 +29,7 @@ inoculatie: ${((result.desem / result.totaalBloem) * 100).toFixed(2)}%`
       };
 
       // Sla het object op in localStorage
-      localStorage.setItem('broodOpslag', JSON.stringify(gegevensOmOpTeSlaan));
+      localStorage.setItem(`${gegevensOmOpTeSlaan.vraag}=${gegevensOmOpTeSlaan.recept}`, JSON.stringify(gegevensOmOpTeSlaan));
       alert('De huidig berekende gegevens zijn opgeslagen in de lokale opslag!');
     })
     .catch(error => {
@@ -55,9 +55,9 @@ function toonOpslag() {
         const row = document.createElement('tr');
 
         // Voeg de velden toe aan de juiste kolommen
-        const cellSleutel = document.createElement('td');
-        cellSleutel.textContent = sleutel;
-        row.appendChild(cellSleutel);
+//        const cellSleutel = document.createElement('td');
+//        cellSleutel.textContent = sleutel;
+//        row.appendChild(cellSleutel);
 
         const celVraag = document.createElement('td');
         celVraag.textContent = parsedValue.vraag || '-';
