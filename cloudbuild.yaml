@@ -41,8 +41,9 @@ steps:
       - 'gcr.io/$PROJECT_ID/github.com/drwitloof/gcpbreadcalc:latest'
 
   # Step 6: Deploy the Docker image to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
+  # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #   entrypoint: 'gcloud'
+  - name: 'gcr.io/cloud-builders/gcloud' 
     args:
       - run
       - deploy
