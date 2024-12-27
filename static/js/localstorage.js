@@ -16,7 +16,7 @@ document.getElementById('opslaanKnop').addEventListener('click', function() {
     .then(result => {
       // Bereken de hydratatie en inocculatie percentages
       const gegevensOmOpTeSlaan = {
-        vraag: `${data.aantalBroden}x${data.gewichtBrood}${data.clean?"(clean)"}`,
+        vraag: `${data.aantalBroden}x${data.gewichtBrood}${data.clean?"(clean)":""}`,
         recept:  `${result.water}g water
 ${result.desem}g desem
 ${result.zout}g zout
